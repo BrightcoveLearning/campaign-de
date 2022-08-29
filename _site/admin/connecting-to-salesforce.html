@@ -1,16 +1,17 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="de">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
+  <meta name="description" content="In this topic you will learn how to configure Brightcove Campaign&trade; zur Verwendung mit Salesforce.">
   
-  <title>Herstellen einer Verbindung mit Salesforce</title>
+  <title>Verbinden mit Salesforce</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">    <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&amp;display=swap">
+  <link rel="manifest" href="/site.webmanifest">  <link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/prism.css">
@@ -18,379 +19,234 @@
   <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/landing-page.css">
   <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/tabs.css">
   <link rel="stylesheet" href="/assets/css/local.css">
-  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&display=swap">
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/381443caa8.js" crossorigin="anonymous"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/google-analytics.js"></script>
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-2728311-17"></script>
+<script>
+  window.dataLayer = window.dataLayer || []; Funktion gtag (){dataLayer.push(arguments);} gtag ('js', new Date ()); gtag ('config', 'UA-2728311-17');
+</script>
   <script src="/assets/js/sajari-head.js"></script>
+	<script src="https://unpkg.com/feather-icons"></script>
 </head>
 
 <body class="body">
-
-<header>
+ <header>
   <div class="div-header">
-    <a href="/"><span class="product-logo" style="font-family:'Balto Web','Public Sans';font-size:2em;font-weight:bold;">BRIGHTCOVE KAMPAGNE<sup>™</sup></span></a>
+    <a href="/"><img class="product-logo" src="https://support.brightcove.com/site-assets/images/site/product-logos/SVG/campaign-logo.svg" alt="Brightcove"></a>
 <!-- GTranslate: https://gtranslate.io/ -->
-<select onchange="doGTranslate(this);"><option value="">Sprache wählen</option><option value="en|en" translate="No">English</option><option value="en|zh-TW" translate="No">繁體中文</option><option value="en|fr" translate="No">Français</option><option value="en|de" translate="No">Deutsche</option><option value="en|ja" translate="No">日本語</option><option value="en|ko" translate="No">한국어</option><option value="en|es" translate="No">Español</option></select>
+<select onchange="doGTranslate(this);"><option value="">Sprache wählen</option><option value="en|en" translate="No">Englisch</option><option value="en|zh-TW" translate="No">繁體中文</option><option value="en|fr" translate="No">Français</option><option value="en|de" translate="No">Deutsche</option><option value="en|ja" translate="No">日本語</option><option value="en|ko" translate="No">한국어</option><option value="en|es" translate="No">Español</option></select>
 
 <script>
-/* <![CDATA[ */
-function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
-/* ]]> */
+/* <![CDATA[ */ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;} /* ]]> */
 </script>
 
-    
 
 
-    <span class="secondary-nav"><a href="https://supportportal.brightcove.com/s/login/?"><img src="https://support.brightcove.com/site-assets/images/site/support.png" alt="Support"/> Kontaktieren Sie Support</a> <span style="vertical-align: top;margin-left:1em;margin-right:1em;">|</span> <a href="https://status.brightcove.com/"><img src="https://support.brightcove.com/site-assets/images/site/status.png" alt="Systemstatus"/> Systemstatus</a></span> <br/>
+    <span class="secondary-nav"><a href="https://supportportal.brightcove.com/s/login/?"><i data-feather="help-circle"></i> Support kontaktieren</a> <span style="vertical-align: middle;margin-left:1em;margin-right:1em;">|</span> <a href="https://status.brightcove.com/"><i data-feather="cloud"></i> Systemstatus</a></span>
+    <br>
     
   </div>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb arr-right">
       
-      <li class="breadcrumb-item"><a href="/">Nach Hause</a></li>
+      <li class="breadcrumb-item first-item"><a href="/">Zuhause</a></li>
+        
+      <li class="breadcrumb-item"><a href="/admin/">Administering Accounts</a></li>
       
-      
-      
-      <li class="breadcrumb-item"><a href="/admin/">Verwalten von Konten</a></li>
-      
-      <li class="breadcrumb-item active" aria-current="page">Herstellen einer Verbindung mit Salesforce</li>
+      <li class="breadcrumb-item active" aria-current="page">Verbinden mit Salesforce</li>
     </ol>
   </nav>
-</header>
-<div class="container">
+</header> <div class="container">
     <div class="row">
-            <div class="col-sm-3 left-side-bar">
-        <select id="site_select" class="bcls-select" style="margin-right: 1rem;">
-          <option value="">Weitere Brightcove Docs</option>
-          
-            
-              <option value="https://support.brightcove.com">Dokumentation Home</option>
-            
-          
-            
-              <option value="https://audience.support.brightcove.com">Brightcove Publikum</option>
-            
-          
-            
-              <option value="https://beacon.support.brightcove.com">Brightcove Leuchtfeuer</option>
-            
-          
-            
-              <option value="https://campaign.support.brightcove.com">Brightcove Kampagne</option>
-            
-          
-            
-              <option value="https://engage.support.brightcove.com">Brightcove Engage</option>
-            
-          
-            
-              <option value="https://live.support.brightcove.com">Brightcove Live</option>
-            
-          
-            
-              <option value="https://gallery.support.brightcove.com">Brightcove Gallery</option>
-            
-          
-            
-              <option value="https://ssai.support.brightcove.com">Brightcove SSAI</option>
-            
-          
-            
-              <option value="https://social.support.brightcove.com">Brightcove Social</option>
-            
-          
-            
-              <option value="https://studio.support.brightcove.com">Video Cloud Studio</option>
-            
-          
-            
-              <option value="https://player.support.brightcove.com">Brightcove Spieler-Entwicklung</option>
-            
-          
-            
-              <option value="https://apis.support.brightcove.com">APIs für Video Cloud-Plattform</option>
-            
-          
-            
-              <option value="https://sdks.support.brightcove.com">Videocloud-Geräte-SDKs</option>
-            
-          
-            
-              <option value="https://integrations.support.brightcove.com">Integrationen und CMS-Konnektoren</option>
-            
-          
-            
-              <option value="https://general.support.brightcove.com">Video Cloud — Allgemeine Informationen</option>
-            
-          
-            
-              <option value="https://zencoder.support.brightcove.com">Zencoder</option>
-            
-          
-        </select>
-
+      <div class="col-sm-3 left-side-bar">
+				<select id="site_select" class="bcls-select" style="margin-left: 1rem;">
+					<option value="">Andere Brightcove Docs</option>
+					 
+							<option value="https://support.brightcove.com">Startseite der Dokumentation</option>
+						  
+							<option value="">-- VIDEO CLOUD --</option>
+						  
+							<option value="https://studio.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Videocloud-Studio</option>
+						  
+							<option value="https://player.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Player Entwicklung</option>
+						  
+							<option value="https://apis.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud-Plattform-APIs</option>
+						  
+							<option value="https://sdks.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud-Geräte-SDKs</option>
+						  
+							<option value="https://integrations.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Integrationen und CMS-Konnektoren</option>
+						  
+							<option value="https://general.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud Allgemeine Informationen</option>
+						  
+							<option value="">-- VIDEO ESSENTIALS --</option>
+						  
+							<option value="https://beacon.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Leuchtfeuer</option>
+						  
+							<option value="https://live.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Live</option>
+						  
+							<option value="https://zencoder.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Zencoder</option>
+						  
+							<option value="">-- VIDEO CLOUD ADD-ONS --</option>
+						  
+							<option value="https://campaign.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove-Kampagne</option>
+						  
+							<option value="https://engage.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Engage</option>
+						  
+							<option value="https://gallery.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Gallerie</option>
+						  
+							<option value="https://studio.support.brightcove.com/social/index.html">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Soziales</option>
+						  
+							<option value="https://ssai.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove SSAI</option>
+						 
+				</select>
         <nav class="sidenav" id="side_nav">
-          
-            
-            <h5><a href="/index.html">Nach Hause</a></h5>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/get-started/index.html">Erste Schritte <strong>+</strong></a></h5>
+           
+            <h5><a href="/index.html">Zuhause</a></h5>
+              
+              <h5 class="submenu-header"><a href="/get-started/index.html"><span style="color:#8E9093">+</span>&nbsp;&nbsp;Erste Schritte</a></h5>
               <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/get-started/brightcove-campaign-training-videos.html">Schulungsvideos zur Kampagne</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/getting-started-brightcove-campaign.html">Erste Schritte mit Brightcove Campaign</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/getting-started-brightcove-campaign-trial.html">Erste Schritte mit deiner Brightcove Campaign-Testversion</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/overview-video-content-types.html">Überblick über Videoinhaltstypen</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/uploading-publishing-your-first-video.html">Hochladen und Veröffentlichen Ihres ersten Videos</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/videos/index.html">Verwalten von Videos <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/videos/adding-text-tracks-to-a-video.html">Hinzufügen von Textspuren</a></li>
-                  
-                
-                  
-                    <li><a href="/videos/capturing-poster-and-thumbnail-images.html">Aufnehmen von Poster- und Thumbnail-Bildern</a></li>
-                  
-                
-                  
-                    <li><a href="/videos/driving-video-views-email.html">Videoaufrufe per E-Mail</a></li>
-                  
-                
-                  
-                    <li><a href="/videos/editing-video-properties.html">Bearbeiten von Videoeigenschaften</a></li>
-                  
-                
-                  
-                    <li><a href="/videos/managing-videos.html">Verwalten von Videos</a></li>
-                  
-                
-                  
-                    <li><a href="/videos/publishing-videos.html">Veröffentlichen von Videos</a></li>
-                  
-                
-                  
-                    <li><a href="/videos/how-to-search-for-videos.html">Suche nach Videos</a></li>
-                  
-                
-                  
-                    <li><a href="/videos/uploading-poster-and-thumbnail-images.html">Hochladen von Poster- und Thumbnail-Bildern</a></li>
-                  
-                
-                  
-                    <li><a href="/videos/uploading-videos.html">Videos werden hochgeladen</a></li>
-                  
-                
-                  
-                    <li><a href="/videos/working-with-shared-videos.html">Arbeiten mit geteilten Videos</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/dashboard/index.html">Überprüfung des Dashboards <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/dashboard/dashboard-overview.html">Dashboard-</a></li>
-                  
-                
-                  
-                    <li><a href="/dashboard/reviewing-adv-dashboard.html">Überprüfung des erweiterten Dashboards</a></li>
-                  
-                
-                  
-                    <li><a href="/dashboard/reviewing-basic-dashboard.html">Überprüfen des Basic-Dashboards</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/analytics/index.html">Überprüfen von Analytics <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/analytics/how-vbs-calculated.html">Wie Video Benchmark Score berechnet wird</a></li>
-                  
-                
-                  
-                    <li><a href="/analytics/reviewing-video-analytics.html">Überprüfen von Videoanalysen</a></li>
-                  
-                
-                  
-                    <li><a href="/analytics/using-hud.html">Verwenden der Heads-Up Display Chrome-Erweiterung</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/admin/index.html">Konten verwalten <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/admin/configuring-adobe-analytics-event-tracking.html">Adobe Analytics</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/configuring-google-analytics-event-tracking.html">Konfigurieren von Google Analytics</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/configuring-map-connections.html">Konfiguration von MAP-Verbindungen</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/connecting-to-hubspot-client-side-api.html">Herstellen einer Verbindung mit HubSpot (clientseitige APIs)</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/connecting-to-hubspot-rest-api.html">Herstellen einer Verbindung mit HubSpot (REST APIs)</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/connecting-to-marketo-munchkin.html">Verbinden mit Marketo (Munchkin)</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/connecting-to-marketo-rest-api.html">Herstellen einer Verbindung zu Marketo (REST-APIs)</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/connecting-to-oracle-eloqua.html">Verbindung mit Oracle Eloqua herstellen</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/connecting-to-salesforce.html">Herstellen einer Verbindung mit Salesforce</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/creating-salesforce-object-pardot.html">Erstellen eines Salesforce-Objekts für Pardot</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/creating-lead-forms.html">Lead-Formulare erstellen</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/creating-lead-forms-hubspot.html">Erstellen von Lead-Formularen in HubSpot</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/creating-lead-forms-marketo.html">Erstellen von Lead-Formularen in Marketo</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/creating-lead-forms-oracle-eloqua.html">Erstellen von Lead-Formularen in Oracle Eloqua</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/creating-lead-forms-salesforce.html">Erstellen von Lead-Formularen in Salesforce</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-account-information.html">Verwalten von Kontoinformationen</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-account-settings.html">Verwalten von Kontoeinstellungen</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-media-sharing-settings.html">Verwalten von Einstellungen für die gemeinsame Nutzung</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-profile-information.html">Verwalten von Profilinformationen</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-users.html">Benutzer verwalten</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/styling-players.html">Styling-Spieler</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/reviewing-player-event-data-in-google-analytics.html">Überprüfen der Spielereignisdaten in Google Analytics</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/viewing-billing-information.html">Anzeigen von Rechnungsinformationen</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/release-notes/index.html">Versionsinformationen <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/release-notes/2020.html">2020</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/support/index.html">unterstützung <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
+                 
+                    <li><a href="/get-started/brightcove-campaign-training-videos.html">Kampagnenschulungsvideos</a></li>
                     
-                  
-                
-                  
-                    <li><a href="/support/viewing-brightcove-system-status-page.html">Anzeigen der Seite „Systemstatus von Brightcove“</a></li>
-                  
-                
-                  
-                    <li><a href="/support/contact-sales.html">Kontakt mit dem Vertrieb</a></li>
-                  
-                
-                  
-                    <li><a href="/support/opening-case-with-brightcove-support.html">Einen Supportfall öffnen</a></li>
-                  
-                
+                    <li><a href="/get-started/getting-started-brightcove-campaign.html">Erste Schritte mit Brightcove Campaign</a></li>
+                    
+                    <li><a href="/get-started/getting-started-brightcove-campaign-trial.html">Erste Schritte mit Ihrer Brightcove Campaign-Testversion</a></li>
+                    
+                    <li><a href="/get-started/overview-video-content-types.html">Übersicht über Videoinhaltstypen</a></li>
+                    
+                    <li><a href="/get-started/uploading-publishing-your-first-video.html">Hochladen und Veröffentlichen Ihres ersten Videos</a></li>
+                   
               </ul>
-            
-          
+              
+              <h5 class="submenu-header"><a href="/videos/index.html"><span style="color:#8E9093">+</span>&nbsp;&nbsp;Videos verwalten</a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                 
+                    <li><a href="/videos/adding-text-tracks-to-a-video.html">Textspuren hinzufügen</a></li>
+                    
+                    <li><a href="/videos/capturing-poster-and-thumbnail-images.html">Aufnehmen von Poster- und Miniaturbildern</a></li>
+                    
+                    <li><a href="/videos/driving-video-views-email.html">Fahren von Videoansichten per E-Mail</a></li>
+                    
+                    <li><a href="/videos/editing-video-properties.html">Videoeigenschaften bearbeiten</a></li>
+                    
+                    <li><a href="/videos/managing-videos.html">Videos verwalten</a></li>
+                    
+                    <li><a href="/videos/publishing-videos.html">Veröffentlichen von Videos</a></li>
+                    
+                    <li><a href="/videos/how-to-search-for-videos.html">Nach Videos suchen</a></li>
+                    
+                    <li><a href="/videos/uploading-poster-and-thumbnail-images.html">Hochladen von Poster- und Miniaturbildern</a></li>
+                    
+                    <li><a href="/videos/uploading-videos.html">Videos hochladen</a></li>
+                    
+                    <li><a href="/videos/working-with-shared-videos.html">Mit geteilten Videos arbeiten</a></li>
+                   
+              </ul>
+              
+              <h5 class="submenu-header"><a href="/dashboard/index.html"><span style="color:#8E9093">+</span>&nbsp;&nbsp;Überprüfen des Dashboards</a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                 
+                    <li><a href="/dashboard/dashboard-overview.html">Dashboard-Übersicht</a></li>
+                    
+                    <li><a href="/dashboard/reviewing-adv-dashboard.html">Überprüfen des erweiterten Dashboards</a></li>
+                    
+                    <li><a href="/dashboard/reviewing-basic-dashboard.html">Überprüfen des Basis-Dashboards</a></li>
+                   
+              </ul>
+              
+              <h5 class="submenu-header"><a href="/analytics/index.html"><span style="color:#8E9093">+</span>&nbsp;&nbsp;Analytics prüfen</a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                 
+                    <li><a href="/analytics/how-vbs-calculated.html">Wie der Video-Benchmark-Score berechnet wird</a></li>
+                    
+                    <li><a href="/analytics/reviewing-video-analytics.html">Überprüfung von Videoanalysen</a></li>
+                    
+                    <li><a href="/analytics/using-hud.html">Verwenden der Chrome-Erweiterung für das Heads-Up-Display</a></li>
+                   
+              </ul>
+              
+              <h5 class="submenu-header"><a href="/admin/index.html"><span style="color:#8E9093">+</span>&nbsp;&nbsp;Konten verwalten</a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                 
+                    <li><a href="/admin/configuring-adobe-analytics-event-tracking.html">Adobe Analytics konfigurieren</a></li>
+                    
+                    <li><a href="/admin/configuring-google-analytics-event-tracking.html">Google Analytics konfigurieren</a></li>
+                    
+                    <li><a href="/admin/configuring-map-connections.html">Konfigurieren von MAP-Verbindungen</a></li>
+                    
+                    <li><a href="/admin/connecting-to-hubspot-client-side-api.html">Verbindung zu HubSpot herstellen (clientseitige APIs)</a></li>
+                    
+                    <li><a href="/admin/connecting-to-hubspot-rest-api.html">Verbindung zu HubSpot herstellen (REST-APIs)</a></li>
+                    
+                    <li><a href="/admin/connecting-to-marketo-munchkin.html">Verbindung zu Marketo (Munchkin)</a></li>
+                    
+                    <li><a href="/admin/connecting-to-marketo-rest-api.html">Herstellen einer Verbindung mit Marketo (REST-APIs)</a></li>
+                    
+                    <li><a href="/admin/connecting-to-oracle-eloqua.html">Verbinden mit Oracle Eloqua</a></li>
+                    
+                    <li><a href="/admin/connecting-to-salesforce.html">Herstellen einer Verbindung mit Salesforce</a></li>
+                    
+                    <li><a href="/admin/creating-salesforce-object-pardot.html">Erstellen eines Salesforce-Objekts für Pardot</a></li>
+                    
+                    <li><a href="/admin/creating-lead-forms.html">Lead-Formulare erstellen</a></li>
+                    
+                    <li><a href="/admin/creating-lead-forms-hubspot.html">Erstellen von Lead-Formularen in HubSpot</a></li>
+                    
+                    <li><a href="/admin/creating-lead-forms-marketo.html">Erstellen von Lead-Formularen in Marketo</a></li>
+                    
+                    <li><a href="/admin/creating-lead-forms-oracle-eloqua.html">Erstellen von Lead-Formularen in Oracle Eloqua</a></li>
+                    
+                    <li><a href="/admin/creating-lead-forms-salesforce.html">Erstellen von Lead-Formularen in Salesforce</a></li>
+                    
+                    <li><a href="/admin/managing-account-information.html">Kontoinformationen verwalten</a></li>
+                    
+                    <li><a href="/admin/managing-account-settings.html">Kontoeinstellungen verwalten</a></li>
+                    
+                    <li><a href="/admin/managing-media-sharing-settings.html">Einstellungen für die Medienfreigabe verwalten</a></li>
+                    
+                    <li><a href="/admin/managing-profile-information.html">Verwalten von Profilinformationen</a></li>
+                    
+                    <li><a href="/admin/managing-users.html">Benutzer verwalten</a></li>
+                    
+                    <li><a href="/admin/styling-players.html">Styling-Spieler</a></li>
+                    
+                    <li><a href="/admin/reviewing-player-event-data-in-google-analytics.html">Überprüfen von Spielerereignisdaten in Google Analytics</a></li>
+                    
+                    <li><a href="/admin/viewing-billing-information.html">Anzeigen von Rechnungsinformationen</a></li>
+                   
+              </ul>
+              
+              <h5 class="submenu-header"><a href="/release-notes/index.html"><span style="color:#8E9093">+</span>&nbsp;&nbsp;Versions-Hinweise</a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                 
+                    <li><a href="/release-notes/campaign-release-notes.html">Versionshinweise zur Brightcove-Kampagne</a></li>
+                   
+              </ul>
+              
+              <h5 class="submenu-header"><a href="/support/index.html"><span style="color:#8E9093">+</span>&nbsp;&nbsp;Unterstützung</a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                 
+                    <li><a href="/support/viewing-brightcove-system-status-page.html">Anzeigen der Seite „Brightcove System Status“</a></li>
+                    
+                    <li><a href="/support/contact-sales.html">Kontakt zum Vertrieb</a></li>
+                    
+                    <li><a href="/support/opening-case-with-brightcove-support.html">Einen Supportfall öffnen</a></li>
+                    
+                    <li><a href="/support/reset-support-portal-password.html">Passwort für das Support-Portal zurücksetzen</a></li>
+                   
+              </ul>
+             
       </nav>
     </div>
     <div class="col-lg-7" style="background-color: white;color: #333333;margin-top: -1em;margin-bottom: -1em;padding-bottom:1em;">
   <!-- bootstrap layout -->
-
-<p id="bc_veggie_burger_wrapper" style="display: none;"><img id="bc_veggie_burger" src="/assets/images/feather/menu.svg" alt="Menü „Navigation"/></p>
+ <p id="bc_veggie_burger_wrapper" style="display: none;"><img id="bc_veggie_burger" src="/assets/images/feather/menu.svg" alt="Navigation Menu"></p>
 <ul id="in_prod_nav" class="pager" style="display: none;">
-  <li><a href="#"><img src="/assets/images/feather/chevron-left.svg" alt="zurück"/></a></li>
+  <li><a href="#"><img src="/assets/images/feather/chevron-left.svg" alt="back"></a></li>
   <li>&nbsp;&nbsp;&nbsp;&nbsp;Beacon-Dokumentation&nbsp;&nbsp;&nbsp;&nbsp;</li>
-  <li><a href="#"><img src="/assets/images/feather/chevron-right.svg" alt="vorwärts"/></a></li>
+  <li><a href="#"><img src="/assets/images/feather/chevron-right.svg" alt="forward"></a></li>
 </ul>
 
 <!-- search bar -->
@@ -402,162 +258,142 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
   <ul id="centered_in_page_toc" class="list-none"></ul>
 </details>
 <!-- open in new tab/window -->
-<a id="open_new_tab" href="#" target="_blank" style="display: none;"><img src="/assets/images/feather/external-link.svg" alt="in neuem Tab öffnen" style="margin-top:4em;"/></a>
-
-
-
-  
-    
-
-
-<article class="bcls-article">
+<a id="open_new_tab" href="#" target="_blank" style="display: none;"><img src="/assets/images/feather/external-link.svg" alt="open in new tab" style="margin-top:4em;"></a>  <article class="bcls-article">
   <h1>Herstellen einer Verbindung mit Salesforce</h1>
-  <summary>In diesem Thema erfahren Sie, wie Sie Brightcove Campaign™ für die Verwendung mit Salesforce konfigurieren.</summary>
+  <summary>In this topic you will learn how to configure Brightcove Campaign&trade; zur Verwendung mit Salesforce.</summary>
   <section class="bcls-section">
-    <p>Brightcove Campaign kann für die Integration in Salesforce konfiguriert werden. Wenn die Integration konfiguriert ist, werden Video-Interaktionsdaten für Videos, die mit Brightcove Campaign veröffentlicht wurden, mit Salesforce synchronisiert. In Salesforce können diese Daten für Segmentierung, Kampagnenlogik, Berichte, Lead-Scoring und Personalisierung der Kommunikation verwendet werden.</p>
+    <p>Brightcove Campaign kann für die Integration in Salesforce konfiguriert werden. Wenn die Integration konfiguriert ist, werden Videointeraktionsdaten für Videos, die mit Brightcove Campaign veröffentlicht wurden, mit Salesforce synchronisiert. In Salesforce können diese Daten für Segmentierung, Kampagnenlogik, Berichte, Lead-Scoring und Personalisierung der Kommunikation verwendet werden.</p>
   </section>
   <section class="bcls-section">
-    <h2 id="requirements">Anforderungen</h2>
-    <p>Um das Brightcove Campaign-Modul mit Salesforce zu verwenden, müssen Sie:</p>
+    <h2 id="requirements">Voraussetzungen</h2>
+    <p>Um das Brightcove Campaign-Modul mit Salesforce verwenden zu können, müssen Sie:</p>
     <ul>
       <li>Haben Sie ein Salesforce-Konto, Salesforce-Sandbox-Konten werden nicht unterstützt</li>
-      <li>Haben Sie ein Salesforce.com-Konto mit der Berechtigung <strong>API Enabled</strong> und gehören Sie zu einer Rolle, mit der Sie das Salesforce-Objekt lesen und schreiben können, an das Sie Anzeigedaten senden möchten</li>
-      <li>Wenn Sie die Pardot-Integration verwenden, sollten Sie die im Thema <a href="/admin/creating-salesforce-object-pardot.html">Erstellen eines benutzerdefinierten Salesforce-Objekts für Pardot-Integration</a> beschriebenen Schritte ausführen.</li>
+      <li>Haben Sie ein Salesforce.com-Konto mit der</strong> Berechtigung <strong>API Enabled und gehören Sie zu einer Rolle, mit der Sie das Salesforce-Objekt lesen und schreiben können, an das Sie Anzeigedaten senden möchten</li>
+      <li>Wenn Sie die Pardot-Integration verwenden, sollten Sie die im</a> Thema <a href="/admin/creating-salesforce-object-pardot.html">Erstellen eines benutzerdefinierten Salesforce-Objekts für Pardot-Integration beschriebenen Schritte ausführen.</li>
     </ul>
   </section>
   <section class="bcls-section">
-    <h2 id="features">Features</h2>
-    <p>Einige der Hauptmerkmale der Integration von Brightcove Campaign - Salesforce sind:</p>
+    <h2 id="features">Funktionen</h2>
+    <p>Einige der Hauptmerkmale der Brightcove Campaign - Salesforce-Integration sind:</p>
     <ul>
       <li><strong>Datenformat</strong> - Das Anzeigen von Daten wird einem Salesforce-Objekt zugeordnet</li>
-      <li><strong>Datenübertragung</strong> - Die Anzeige von Daten wird stündlich von Brightcove Campaign an Salesforce gesendet</li>
-      <li><strong>Lead-Formulare</strong> - Erstellen Sie Salesforce-Formulare, die automatisch angezeigt werden, wenn die Zuschauer Videos ansehen. Informationen finden Sie unter <a href="/admin/creating-lead-forms-salesforce.html">Erstellen von Lead-Formularen in Salesforce</a>.</li>
+      <li><strong>Datenübertragung</strong> - Das Anzeigen von Daten wird stündlich von Brightcove Campaign an Salesforce gesendet</li>
+      <li><strong>Lead-Formulare</strong> - Erstellen Sie Salesforce-Formulare, die automatisch angezeigt werden, wenn Zuschauer Videos ansehen. Weitere Informationen finden Sie unter <a href="/admin/creating-lead-forms-salesforce.html">Erstellen von Lead-Formularen in Salesforce</a>.</li>
     </ul>
   </section>
   <section class="bcls-section">
     <h2 id="setupconnection">Einrichten der Verbindung</h2>
     <p>Befolgen Sie diese Schritte, um die Verbindung zwischen Brightcove Campaign und Salesforce herzustellen.</p>
-    <aside class="bcls-aside bcls-aside--information language-editable">Hinweis: Der Verbindungsprozess öffnet Popup-Fenster in Ihrem Browser. Sie sollten alle Browser-Popup-Blocker deaktivieren, bevor Sie die Verbindung einrichten.</aside>
-    <aside class="bcls-aside bcls-aside--information language-editable">Hinweis: Brightcove empfiehlt, ein dediziertes Salesforce-Benutzerkonto zu erstellen, das bei der Konfiguration der Integration mit Brightcove Campaign verwendet werden soll.</aside>
+    <aside class="bcls-aside bcls-aside--information">Hinweis: Der Verbindungsprozess öffnet Popup-Fenster in Ihrem Browser. Sie sollten alle Browser-Popup-Blocker deaktivieren, bevor Sie die Verbindung einrichten.</aside> <aside class="bcls-aside bcls-aside--information">Hinweis: Brightcove empfiehlt, ein dediziertes Salesforce-Benutzerkonto zu erstellen, das bei der Konfiguration der Integration mit Brightcove Campaign verwendet werden soll.</aside>
     <ol class="bcls-tasklist-restart">
       <li>Melden Sie sich bei Brightcove Campaign an.</li>
-      <li> Klicken Sie in der Navigationskopfzeile auf das Zahnradsymbol (<img class="bcls-image--no-border" alt="" src="/assets/images/admin/gear-icon.png"/>) und dann auf <strong>MAP-Verbindungen</strong>. Eine Liste der aktuellen Verbindungen (falls vorhanden) wird angezeigt. </li>
-      <li>Klicken Sie auf <strong>Add New Connection</strong>.</li>
-      <li>Wählen Sie <strong>Salesforce</strong> aus der Dropdown-Liste aus und klicken Sie <strong>auf Mit Salesforce verbinden</strong>.</li>
-      <li>Geben Sie im angezeigten Anmeldebildschirm Ihren Benutzernamen (<strong>Username</strong>) und das Kennwort (<strong>Password</strong>) für Salesforce ein. Klicken Sie auf „ <strong>Anmelden</strong>“
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="Salesforce-Anmeldung" src="/assets/images/admin/salesforce-login.png"/></figure>
+      <li> Klicken Sie in der Navigationskopfzeile auf das Zahnradsymbol (<img class="bcls-image--no-border" alt="" src="/assets/images/admin/gear-icon.png" />) und dann <strong>MAP Connections</strong>. Eine Liste der aktuellen Verbindungen (falls vorhanden) wird angezeigt. </li>
+      <li>Klicken Sie auf Neue Verbindung <strong>hinzufügen</strong>.</li>
+      <li>Wählen Sie <strong>Salesforce</strong> aus der Dropdown-Liste aus und klicken Sie auf <strong>Mit Salesforce verbinden</strong>.</li>
+      <li>Geben Sie auf dem angezeigten Anmeldebildschirm Ihren <strong>Salesforce-Benutzernamen </strong>und Ihr <strong>Passwort ein</strong>. Klicken Sie auf <strong>Anmelden</strong>.
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="Salesforce login" src="/assets/images/admin/salesforce-login.png" /></figure>
       </li>
-      <li>Wenn die Anmeldung erfolgreich ist, werden Sie zum Installieren der App <strong>Brightcove Video Connect for Salesforce</strong> aufgefordert. Klicken Sie auf <strong>Allow</strong> (Zulassen).
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="salesforce erlauben Zugriff" src="/assets/images/admin/salesforce-bc-connect-salesforce.png"/></figure>
+      <li>Wenn die Anmeldung erfolgreich ist, werden Sie aufgefordert, die <strong>Brightcove Video Connect for</strong> Salesforce-App zu installieren. Klicken Sie auf <strong>Zulassen</strong>.
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="salesforce allow access" src="/assets/images/admin/salesforce-bc-connect-salesforce.png" /></figure>
       </li>
-      <li>Stellen Sie sicher, dass Sie eine Meldung erhalten, dass die Verbindung erfolgreich war. Sie werden zurück zu Brightcove Campaign geleitet.</li>
-      <li>(Optional) Geben Sie einen <strong>Verbindungsnamen</strong>ein.</li>
-      <li>Wählen Sie einen Integrationstyp aus.
+      <li>Stellen Sie sicher, dass Sie eine Meldung erhalten, dass die Verbindung erfolgreich war. Sie werden zurück zu Brightcove Campaign weitergeleitet.</li>
+      <li>(Optional) Geben Sie einen <strong>Verbindungsnamen ein</strong>.</li>
+      <li>Wählen Sie einen Integrationstyp.
         <ul>
-          <li><strong>Pardot</strong> - Pardot wird verwendet, um Zuschauer zu identifizieren. Weitere Informationen finden Sie weiter unten im Abschnitt <a href="#pardot">Konfigurieren einer Pardot-Integration</a> .</li>
-          <li><strong>Manuell</strong> - Ihre Entwicklungsmitarbeiter sind dafür verantwortlich, Logik zur <a href="#identify">Identifizierung von Zuschauern</a>hinzuzufügen.</li>
+          <li><strong>Pardot</strong> - Pardot wird verwendet, um Zuschauer zu identifizieren. Weitere Informationen finden Sie im</a> Abschnitt <a href="#pardot">Konfigurieren einer Pardot-Integration unten.</li>
+          <li><strong>Handbuch</strong> - Ihre Entwicklungsmitarbeiter sind dafür verantwortlich, Logik zur <a href="#identify">Identifizierung von Zuschauern hinzuzufügen</a>.</li>
         </ul>
       </li>
-      <li>Wählen Sie einen <strong>Mapping-Typ</strong> aus und <a href="#configuredata">konfigurieren Sie die Datenzuordnung</a>.</li>
-      <li>Klicken Sie auf <strong>Save</strong>.</li>
-      <li>Klicken Sie oben auf der Seite auf den Link <strong>Zurück zu MAP-Verbindungen</strong> , um zur Seite MAP-Verbindungen zurückzukehren.</li>
+      <li>Wählen Sie einen <strong>Mapping-Typ aus</strong> und <a href="#configuredata">konfigurieren Sie die Datenzuordnung</a>.</li>
+      <li>Klicken Sie auf <strong>Speichern</strong>.</li>
+      <li>Klicken Sie oben auf der Seite auf den</strong> Link <strong>Zurück zu MAP-Verbindungen, um zur Seite MAP-Verbindungen zurückzukehren.</li>
     </ol>
-    <aside class="bcls-aside bcls-aside--information language-editable">Hinweis: Wenn Sie eine Verbindung erstellen, ohne einen Integrationstyp zu konfigurieren, hat die Verbindung auf der Seite MAP-Verbindungen den Status „ <strong>Verbindung unvollständig</strong> “.</aside>
+    <aside class="bcls-aside bcls-aside--information">Hinweis: Wenn Sie eine Verbindung erstellen, ohne einen Integrationstyp zu konfigurieren, hat die Verbindung</strong> auf der Seite MAP-Verbindungen den Status „ <strong>Verbindung unvollständig“.</aside>
   </section>
   <section class="bcls-section">
     <h2 id="pardot">Konfigurieren einer Pardot-Integration</h2>
-    <p>Sobald die Brightcove Campaign zu Salesforce Verbindung hergestellt wurde, müssen Sie einen Integrationstyp konfigurieren. In diesem Abschnitt werden die Schritte zur Verwendung eines <strong>Pardot-Integrationstyps</strong> beschrieben.</p>
-    <aside class="bcls-aside bcls-aside--information language-editable">Hinweis: Bevor Sie die Pardot-Integration konfigurieren, sollten Sie die im Thema <a href="/admin/creating-salesforce-object-pardot.html">Erstellen eines benutzerdefinierten Salesforce-Objekts für Pardot-Integration</a> beschriebenen Schritte ausführen.</aside>
-    <aside class="bcls-aside bcls-aside--information language-editable">Hinweis: Brightcove empfiehlt, ein dediziertes Pardot-Benutzerkonto zu erstellen, das bei der Konfiguration der Integration mit Brightcove Campaign verwendet werden soll.</aside>
+    <p>Sobald die Verbindung von Brightcove Campaign zu Salesforce hergestellt wurde, müssen Sie einen Integrationstyp konfigurieren. In diesem Abschnitt werden die Schritte zur Verwendung eines <strong></strong> Pardot-Integrationstyps beschrieben.</p>
+    <aside class="bcls-aside bcls-aside--information">Hinweis: Bevor Sie die Pardot-Integration konfigurieren, sollten Sie die im</a> Thema <a href="/admin/creating-salesforce-object-pardot.html">Erstellen eines benutzerdefinierten Salesforce-Objekts für Pardot-Integration beschriebenen Schritte ausführen.</aside> <aside class="bcls-aside bcls-aside--information">Hinweis: Brightcove empfiehlt, ein dediziertes Pardot-Benutzerkonto zu erstellen, das bei der Konfiguration der Integration mit Brightcove Campaign verwendet wird.</aside>
     <ol class="bcls-tasklist">
-      <li>Wählen Sie <strong>Pardot</strong> für den Integrationstyp aus.</li>
-      <li>Geben Sie Ihre <strong>E-Mail-Adresse</strong> und Ihr <strong>Passwort ein</strong> , mit dem Sie sich bei Pardot anmelden.</li>
+      <li>Wählen Sie <strong>Pardot</strong> als Integrationstyp aus.</li>
     </ol>
-    <h3 id="pardot-api-key">Holen Sie sich den Pardot-API-Schlüssel</h3>
-    <p>Gehen Sie folgendermaßen vor, um den Wert für das API-Schlüsselfeld zu ermitteln.</p>
+    <h3 id="pardot-api-key">Holen Sie sich die ID der Pardot-Geschäftseinheit</h3>
+    <p>Gehen Sie folgendermaßen vor, um den Wert für das Feld „Pardot Business Unit ID“ zu erhalten.</p>
     <ol  class="bcls-tasklist">
-      <li>Melden Sie sich bei Pardot an.</li>
-      <li> Klicken Sie auf das Zahnradsymbol (<img class="bcls-image--no-border" alt="" src="/assets/images/admin/pardot-gear-icon.png"/>) und dann auf <strong>Einstellungen</strong>.</li>
-      <li> Klicken Sie oben auf der Seite auf den Link <strong>Mein Profil</strong> .</li>
-      <li> Kopieren Sie den Wert im Feld <strong>API-Benutzerschlüssel</strong> und fügen Sie ihn in das Feld <strong>Benutzerschlüssel</strong> ein.</li>
+      <li>Melden Sie sich bei Ihrem Salesforce-Konto an.</li>
+      <li> Klicken Sie auf das Zahnradsymbol (<img class="bcls-image--no-border" alt="" src="/assets/images/admin/pardot-gear-icon.png" />) und dann <strong>Setup</strong>.</li>
+      <li>Suchen Sie in der linken Navigation im</strong> Feld <strong>Schnellsuche nach <strong>Pardot</strong> und klicken Sie dann auf <strong>Pardot-Kontoeinrichtung</strong>.</li>
+      <li> Suchen Sie das</strong> Feld „ <strong> Geschäftseinheit-ID“. Geben Sie den Wert in das</strong> Feld <strong>Pardot Business Unit ID unter Zielgruppe ein.</li>
     </ol>
     <h3 id="tracking-ids">Holen Sie sich die Tracking-</h3>
-    <p>Gehen Sie folgendermaßen vor, um den Wert für die Felder <strong>Tracking PialD</strong> <strong>und Tracking</strong> zu ermitteln.</p>
+    <p>Gehen Sie folgendermaßen vor, um den Wert für die <strong></strong> Felder PialD <strong>verfolgen</strong> und PicLD verfolgen zu erhalten.</p>
     <ol class="bcls-tasklist">
-      <li>Klicken Sie in der linken Navigationsleiste auf das <strong>Marketing-Symbol</strong> und dann auf <strong>Kampagnen</strong>.</li>
-      <li> Klicken Sie auf einen Kampagnennamen (oder fügen Sie eine Kampagne hinzu, wenn keine Kampagnen vorhanden sind).
-        <aside class="bcls-aside bcls-aside--information">Hinweis: Es spielt keine Rolle, welche Kampagne Sie auswählen, Brightcove Campaign benötigt beide Werte, um das Cookie zur Identifizierung des Betrachters zu erhalten.</aside>
+      <li>Klicken Sie in der linken Navigation auf das <strong></strong> Marketing-Symbol und dann auf <strong>Kampagnen</strong>.</li>
+      <li> Klicken Sie auf einen Kampagnennamen (oder fügen Sie eine Kampagne hinzu, wenn es keine Kampagnen gibt). <aside class="bcls-aside bcls-aside--information">Hinweis: Es spielt keine Rolle, welche Kampagne Sie auswählen, Brightcove Campaign benötigt beide Werte, um den Cookie zu erhalten, um den Betrachter zu identifizieren.</aside>
       </li>
-      <li> Klicken Sie auf <strong>Tracking Code anzeigen</strong>. Die <strong>PiAid-</strong> und <strong>PicID-Werte</strong> werden angezeigt.
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/admin/pardot-tracking-code.png"/></figure>
+      <li> Klicken Sie auf Tracking-Code <strong>anzeigen</strong>. Die <strong> <strong>PiAid</strong> - und</strong> PicId-Werte werden angezeigt.
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/admin/pardot-tracking-code.png" /></figure>
       </li>
-      <li>Kopieren Sie die Werte und fügen Sie sie in die jeweiligen Felder ein.
-        <aside class="bcls-aside bcls-aside--information">Hinweis: Brightcove Campaign validiert die Felder PiAid und PicID nicht, aber wenn falsche Werte eingegeben werden, kann Brightcove Campaign den Betrachter nicht identifizieren.</aside>
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="Salesforce-Integrationstyp" src="/assets/images/admin/pardot-credentials.png"/></figure>
+      <li>Kopieren Sie die Werte und fügen Sie sie in ihre jeweiligen Felder ein. <aside class="bcls-aside bcls-aside--information">Hinweis: Brightcove Campaign validiert die Felder PiAid und PicID nicht, aber wenn falsche Werte eingegeben werden, kann Brightcove Campaign den Betrachter nicht identifizieren.</aside>
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="salesforce integration type" src="/assets/images/admin/pardot-credentials.png" /></figure>
       </li>
-      <li>Klicken Sie <strong>auf Mit Pardot verbinden</strong>.</li>
+      <li>Klicken Sie auf <strong>Mit Pardot verbinden</strong>.</li>
     </ol>
-    <p>In der Regel wählen Sie bei Verwendung des Pardot-Integrationstyps den <strong>erweiterten</strong> Mapping-Typ aus und ordnen die Ansichtsfelder dann dem <a href="/admin/creating-salesforce-object-pardot.html">benutzerdefinierten Salesforce-Objekt zu, das</a> Sie erstellt haben.</p>
+    <p>Wenn Sie den Pardot-Integrationstyp verwenden, wählen Sie normalerweise den <strong>erweiterten</strong> Mapping-Typ aus und ordnen die Ansichtsfelder dann dem von</a> Ihnen erstellten benutzerdefinierten <a href="/admin/creating-salesforce-object-pardot.html">Salesforce-Objekt zu.</p>
   </section>
   <section class="bcls-section">
     <h2 id="configuredata">Konfigurieren der Datenzuordnung</h2>
-    <p>Mit der Datenzuordnung wird bestimmt, wie Video-Daten den Feldern in einem Salesforce-Objekt zugeordnet werden. Standardmäßig wird die Integration mit der Zuordnung vom Typ <strong>Simple</strong> konfiguriert. Hierbei werden einige Video-Daten dem <strong>Task</strong>-Objekt in Salesforce zugeordnet.</p>
-    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="Salesforce-Mappping-Typ" src="/assets/images/admin/salesforce-simple-mapping.png"/></figure>
-    <p>Führen Sie die folgenden Schritte aus, um die Datenzuordnung anzupassen.</p>
+    <p>Die Datenzuordnung bestimmt, wie Videodaten Feldern in einem Salesforce-Objekt zugeordnet werden. Standardmäßig wird die Integration mit <strong>Simple</strong> Mapping konfiguriert, das einige Videodaten dem <strong></strong> Task-Objekt in Salesforce zuordnet.</p>
+    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="salesforce mappping type" src="/assets/images/admin/salesforce-simple-mapping.png" /></figure>
+    <p>Gehen Sie folgendermaßen vor, um die Datenzuordnung anzupassen.</p>
     <ol class="bcls-tasklist-restart">
-      <li>Wählen Sie für <strong>Mapping Type</strong> die Option <strong>Advanced</strong>.</li>
-      <li>Wählen Sie in der Dropdown-Liste <strong>Salesforce-Objekt</strong> ein Salesforce-Objekt aus, dem die Videodaten zugeordnet werden sollen. Normalerweise ordnen Sie bei Verwendung des Pardot-Integrationstyps die Ansichtsfelder dem <a href="/admin/creating-salesforce-object-pardot.html">benutzerdefinierten Salesforce-Objekt zu, das</a> Sie erstellt haben.
-        </p>
+      <li>Wählen Sie für den <strong>Mapping-Typ</strong> die Option <strong>Erweitert aus</strong>.</li>
+      <li>Wählen Sie in der</strong> Dropdown-Liste <strong>Salesforce-Objekt ein Salesforce-Objekt aus, dem die Videodaten zugeordnet werden sollen. Wenn Sie den Pardot-Integrationstyp verwenden, ordnen Sie die Ansichtsfelder normalerweise dem von</a> Ihnen erstellten benutzerdefinierten <a href="/admin/creating-salesforce-object-pardot.html">Salesforce-Objekt zu.
       </li>
-      <li>Ordnen Sie das entsprechende <strong>Ansichtsfeld</strong> den Salesforce-Feldern zu. Das folgende Beispiel zeigt die Videofelder, die einem benutzerdefinierten Objekt zugeordnet werden.
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="Salesforce erweitertes Mapping" src="/assets/images/admin/salesforce-adv-mapping.png"/></figure>
+      <li>Ordnen Sie das entsprechende <strong>Ansichtsfeld Salesforce-Feldern</strong> zu. Das folgende Beispiel zeigt, dass die Videofelder einem benutzerdefinierten Objekt zugeordnet werden.
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="salesforce advanced mapping" src="/assets/images/admin/salesforce-adv-mapping.png" /></figure>
       </li>
-      <li>Klicken Sie auf <strong>Save</strong>, um die Änderungen zu speichern.</li>
+      <li>Klicken Sie auf <strong>Speichern</strong>, um die Änderungen zu speichern.</li>
     </ol>
     <p>Um die Integration mit Salesforce zu entfernen, klicken Sie auf <strong>Löschen</strong>.</p>
   </section>
   <section class="bcls-section">
     <h2 id="trackingid2">Übergeben einer Tracking-ID</h2>
-    <p>Brightcove Campaign unterstützt die Möglichkeit, einen Wert für die Tracking-ID an Salesforce zu übergeben. Die Tracking-ID kann beispielsweise verwendet werden, um eine Kampagnen-ID zu verfolgen. Die Tracking-ID kann an die Seiten-URL angehängt werden, die das Video anzeigt oder dem Einbettungscode hinzugefügt wird.</p>
+    <p>Brightcove Campaign unterstützt die Möglichkeit, einen Tracking-ID-Wert an Salesforce zu übergeben. Die Tracking-ID kann beispielsweise verwendet werden, um eine Kampagnen-ID zu verfolgen. Die Tracking-ID kann an die Seiten-URL angehängt werden, die das Video anzeigt oder dem Einbettungscode hinzugefügt wird.</p>
     <ul>
       <li>Beispiel: An URL angehängt</li>
     </ul>
     <pre>
   http://www.myurl.com/video.html?<strong>bctrackingid=12345</strong></pre>
     <ul>
-      <li>Beispiel: Zu Spieler-Einbettungscode hinzugefügt</li>
+      <li>Beispiel: Zum Einbettungscode des Spielers hinzugefügt</li>
     </ul>
     <pre>
-  &lt;Videodaten-video-id="6033402539001" 
-         Daten-Konto="1486906377" 
-         data-player="default“ 
-         data-embed="default“ 
-         Data-Anwendungs-ID 
-         class="video-js“
-         <strong>data-bc-trackingid="12345"</strong> 
-         &gt; &lt;Steuerelemente/Video &gt;
-  &lt;skript src=“//players.brightcove.net/1486906377/default_default/index.min.js“ &gt; &lt; /script &gt;</pre>
-    <p>Brightcove Campaign gibt dann den Wert als ein anderes Feld, das synchronisiert wird, an Salesforce weiter.</p>
+  &lt;video data-video-id="6033402539001" data-account="1486906377" data-player="default“ data-embed="default“ data-applikation-id class="video-js“ <strong>data-bc-trackingid="12345"</strong> controls&gt;&lt;/video &gt; &lt;script src=“ //players.brightcove.net/1486906377/default_default/index.min.js"&gt;&lt;/script &gt;</pre>
+    <p>Brightcove Campaign übergibt den Wert dann an Salesforce als weiteres Feld, das synchronisiert wird.</p>
   </section>
   <section class="bcls-section">
     <h2 id="identify">Identifizieren von Zuschauern</h2>
-    <p>Wenn Ihre Salesforce-Verbindung mit einem <strong>manuellen</strong> Integrationstyp konfiguriert ist, müssen Sie die Zuschauer identifizieren. Die Zuschaueraufzeichnung setzt voraus, dass die Benutzer-ID auf der Seite, auf der das Video angezeigt wird, als URL-Parameter angegeben wird. Zwei URL-Parameter werden unterstützt:</p>
+    <p>Der Prozess zur Identifizierung von Betrachtern unterscheidet sich je nach dem Integrationstyp, der beim Herstellen der Verbindung ausgewählt wurde.</p>
+    <h3>Manuelle Integration</h3>
+    <p>Wenn Ihre Salesforce-Verbindung mit einem <strong>manuellen</strong> Integrationstyp konfiguriert ist, liegt es an Ihnen, Zuschauer zu identifizieren. Damit das Viewer-Tracking stattfinden kann, sollte die Benutzer-ID als URL-Parameter auf der Seite übergeben werden, auf der das Video angezeigt wird. Zwei URL-Parameter werden unterstützt:</p>
     <ul>
-      <li><strong>bcemail</strong>: Zum Übergeben der E-Mail-Adresse eines Zuschauers</li>
-      <li><strong>bcsfid</strong>: Zum Übergeben der Salesforce-ID eines Zuschauers</li>
+      <li><strong>bcemail</strong> - Um die E-Mail-Adresse des Betrachters zu übergeben</li>
+      <li><strong>bcsfid</strong> - Um die Salesforce-ID des Betrachters zu übergeben</li>
     </ul>
-    <p>Bei diesem Szenario werden Video-Zielseiten mit einer URL generiert, die speziell zu Verfolgungszwecken generiert wurde. Brightcove Campaign verwendet dann den URL-Parameter, um die Serverseite des Benutzers nachzuschlagen und die Anzeigedaten zu synchronisieren. </p>
+    <p>In diesem Szenario würden Video-Landingpages mit einer URL generiert, die eindeutig zu Tracking-Zwecken generiert wurde. Brightcove Campaign verwendet dann den URL-Parameter, um die benutzerserverseitigen und Anzeigedaten zu synchronisieren.</p>
+    <h3>Pardot-Integration</h3>
+    <p>Wenn Ihre Salesforce-Verbindung mit einem <strong></strong> Pardot-Integrationstyp konfiguriert ist, versucht die Integration, das Pardot-Cookie für den Viewer zu verwenden. Es ist auch möglich, den Benutzer anhand seiner E-Mail-Adresse zu identifizieren. Dazu sollte ein <strong></strong> BCEmail-URL-Parameter mit der E-Mail-Adresse des Betrachters auf der Seite weitergegeben werden, auf der das Video angezeigt wird.</p>
   </section>
   <section class="bcls-section">
-    <h2 id="sfdata">Anzeigen von Video-Daten in Salesforce</h2>
-    <p>Wenn Videos angesehen werden, werden Daten zur Videoanzeige mit Salesforce synchronisiert. Wenn für die Datenzuordnung die Option <strong>Simple</strong> gewählt wurde, erscheinen Video-Anzeigedaten in Salesforce als <strong>Task</strong>-Eintrag. Wenn für die Datenzuordnung die Option <strong>Advanced</strong> verwendet wurde, werden Video-Anzeigedaten als Teil des Salesforce-Objekts angezeigt, das beim Konfigurieren der Zuordnung ausgewählt wurde. Im folgenden Beispiel wurde die <strong>erweiterte</strong> Datenzuordnung verwendet, und die Videofelder wurden einem benutzerdefinierten <strong>BC Video View</strong> Salesforce -Objekt zugeordnet.</p>
-    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="Salesforce-Aufgabenprotokoll" src="/assets/images/admin/salesforce-bc-video-view-record.png"/></figure>
-    <p>Durch Klicken auf den Videonamen werden detaillierte Informationen angezeigt.</p>
-    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="Details zur Salesforce-Aufgabe" src="/assets/images/admin/salesforce-bc-video-view-detail.png"/></figure>
+    <h2 id="sfdata">Anzeigen von Videodaten in Salesforce</h2>
+    <p>Während der Anzeige von Videos werden die Daten zur Videoanzeige mit Salesforce synchronisiert. Wenn die Option <strong>Einfache</strong> Datenzuordnung ausgewählt wurde, werden Videoansichtsdaten als <strong></strong> Aufgabeneintrag in Salesforce angezeigt. Wenn die Option <strong>Erweiterte</strong> Datenzuordnung verwendet wurde, wird das Anzeigen von Daten als Teil des Salesforce-Objekts angezeigt, das bei der Konfiguration der Zuordnung ausgewählt wurde. Im folgenden Beispiel wurde die <strong>erweiterte</strong> Datenzuordnung verwendet und die Videofelder wurden einem benutzerdefinierten <strong>BC Video View</strong> Salesforce-Objekt zugeordnet.</p>
+    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="salesforce task record" src="/assets/images/admin/salesforce-bc-video-view-record.png" /></figure>
+    <p>Wenn Sie auf den Videonamen klicken, werden detaillierte Informationen angezeigt.</p>
+    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="salesforce task detail" src="/assets/images/admin/salesforce-bc-video-view-detail.png" /></figure>
   </section>
-</article>
-
-<!-- complete bootstrap layout -->
+</article> <!-- complete bootstrap layout -->
     </div>
     <div class="col-sm-2 right-side-bar">
       
@@ -571,28 +407,35 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 </div>
 
 <hr>
-<footer class="bcls-footer" role="contentinfo">  <div class="row">
+<div class="last-updated">
+  Seite zuletzt aktualisiert am 14 Feb 2022
+</div>
+
+
+ <footer class="bcls-footer" role="contentinfo">
+  <div class="row">
     <div class="region region-footer-top-center col-md-12">
       <nav role="navigation" aria-labelledby="block-brightcovesupport-menu" id="block-brightcovesupport" class="footer-menu">
+        <img src="https://support.brightcove.com/site-assets/images/site/SVG/COVE004_Brightcove_Logo_093020_RGB_KO.svg" class="bc-footer-logo" alt="Brightcove">
 
-        <h2>Brightcove Support-Service</h2>
+        <h2>Brightcove-Unterstützung</h2>
 
         <ul class="menu">
           <li>
             <a href="https://status.brightcove.com">Systemstatus</a>
           </li>
           <li>
-            <a href="https://supportportal.brightcove.com/s/login/?">Kontakt mit dem Support</a>
+            <a href="https://supportportal.brightcove.com/s/login/?">Kontaktieren Sie den Support</a>
           </li>
           <li>
-            <a href="https://support.brightcove.com/">DOKUMENTATION</a>
+            <a href="https://support.brightcove.com/">Dokumentation</a>
           </li>
         </ul>
 
       </nav>
       <nav role="navigation" aria-labelledby="block-training-menu" id="block-training" class="footer-menu">
 
-        <h2>Schulungen</h2>
+        <h2>Schulung</h2>
 
         <ul class="menu">
           <li>
@@ -613,7 +456,7 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 
         <ul class="menu">
           <li>
-            <a href="https://www.brightcove.com">brightcove.com</a>
+            <a href="https://www.brightcove.com">BrightCove.com</a>
           </li>
           <li>
             <a href="https://supportportal.brightcove.com/s/login/?">Kontaktiere uns</a>
@@ -630,10 +473,10 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
             <td>
               <div id="bc_copyright" class="field field--name-field-copyright-year field--type-string field--label-hidden field--item" style="float: left;"> Brightcove Inc. Alle Rechte vorbehalten.</div>
             </td>
-            <td><a href="https://www.brightcove.com/en/legal/privacy">Privacy</a> | <a href="https://www.brightcove.com/en/terms-and-conditions">Allgemeine Geschäftsbedingungen</a></td>
+            <td><a href="https://www.brightcove.com/en/legal/privacy">Datenschutz</a> | <a href="https://www.brightcove.com/en/terms-and-conditions">Allgemeine Geschäftsbedingungen</a></td>
             <td>
               <div class="gf-links-cols footer-menu">
-                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin"><i class="fab fa-linkedin-in" style="font-size: 1.5rem;"></i></a><a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter"><i class="fab fa-twitter" style="font-size: 1.5rem;"></i></a><a href="https://www.facebook.com/Brightcove" title="Facebook" newtab="newtab" class="gf-social-facebook"><i class="fab fa-facebook-f" style="font-size: 1.5rem;"></i></a>
+                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin" style="margin-right: 1rem;"><i data-feather="linkedin" style="color:#8E9093;height: 1.25rem;"></i></a><a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter" style="margin-right: 1rem;"><i data-feather="twitter" style="color:#8E9093;height: 1.25rem;"></i></a><a href="https://www.facebook.com/Brightcove" title="Facebook" newtab="newtab" class="gf-social-facebook"><i data-feather="facebook" style="color:#8E9093;height: 1.25rem;"></i></a>
                 </div>
               </div>
             </td>
@@ -646,23 +489,10 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 
 <script>
       
-  var searchBox = sajari.init({
-    mode: "search-box",
-    project: "1588255093746585379", // Set this to your project.
-    collection: "brightcove-documenation", // Set this to your collection.
-    instantPipeline: "autocomplete", // Pipeline used as you type
-    inputPlaceholder: "Search", // Input element placeholder
-    maxSuggestions: 5, // Maximum number of suggestions to show
-    attachSearchBox: document.getElementById("nav-search-box") // DOM element to attach to
-  });
-  
-    searchBox("sub", "pipeline.search-sent", function (_, query) {
-      window.location = "/search.html?q=" + encodeURIComponent(query.q);
-    });
+  var SearchBox = sajari.init ({ mode: "search-box", project: "1588255093746585379", // Set this to your project. collection: "brightcove-documenation", // Set this to your collection. instantPipeline: "autocomplete", // Pipeline used as you type inputPlaceholder: "Search", // Input element placeholder maxSuggestions: 5, // Maximum number of suggestions to show attachSearchBox: document.getElementById("nav-search-box") // DOM element to attach to }); SearchBox („sub“, „pipeline.search-sent“, Funktion (_, Abfrage) { window.location = "/search.html?q=" + encodeURIComponent(query.q); });
   
 
-</script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" crossorigin="anonymous"></script>
+</script>   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://support.brightcove.com/site-assets/js/site/https-fix.js"></script>
@@ -680,34 +510,14 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
   
   <script src="/assets/js/sajari-search-foot.js"></script>
   
+	<script>
+  feather.replace ()
+	</script>
   <!-- <script src="/assets/js/sajari-index.js"></script> -->
   <style>
-    a.sj-paginator__page-number.sj-paginator__page-number--current.css-so0ov7 {
-      background-color: lightblue;
-    }
-    div.sj-tabs__tab {
-      margin-top: 3rem;
-      margin-left: .3rem;
-      border-top-left-radius: .4rem;
-      border-top-right-radius: .4rem;
-      background-color:#e8e8e8;
-    }
-
-    div.sj-tabs__tab.sj-tabs__tab--selected {
-      border-bottom-color: crimson;
-      background-color: #f8f8f8;
-    }
-
-    p.sj-results__result__description.css-p9jvyt {
-      font-size: 1rem;
-    }
-
-    .sj-result__text.css-31l7gp h3 {
-      color: navy;
-      font-size: 1.4rem;
-    }
+    a.sj-paginator__page-number.sj-paginator__seitenzahl—current.css-so0ov7 { background-color: lightblue; } div.sj-tabs__tab { margin-top: 3rem; margin-left: .3rem; border-top-left-radius: .4rem; border-top-right-radius: .4rem; background-color:#e8e8e8; } { border-bottom-color: crimson; background-color: #f8f8f8; } div.sj-tabs__tabs__tabs__tabs__tabs__tabs__tabs__tabs__tabs__tab div.sj-result__description.css-p9jvyt { font-size: 1rem; } .sj-result__text. css-31l7gp h3 { color: navy; font-size: 1.4rem; }
     </style>
 
 </body>
 
-</html>
+</html> 
